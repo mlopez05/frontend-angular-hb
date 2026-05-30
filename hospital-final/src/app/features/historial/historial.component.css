@@ -1,0 +1,15 @@
+.historial { max-width: 860px; }
+.page-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 28px; }
+.page-header h2 { font-size: 28px; color: var(--primary); margin-bottom: 4px; }
+.page-header p { color: var(--text-muted); }
+.nuevo-form { margin-bottom: 24px; padding: 28px; }
+.nuevo-form h3 { font-size: 18px; color: var(--primary); margin-bottom: 20px; }
+.search-box { padding: 24px; margin-bottom: 24px; }
+.search-row { display: flex; gap: 16px; align-items: flex-end; }
+.registros-list { display: flex; flex-direction: column; gap: 16px; }
+.registro-card { padding: 24px; border-left: 4px solid var(--primary); }
+.registro-header { display: flex; justify-content: space-between; margin-bottom: 12px; }
+.registro-id { font-weight: 700; color: var(--primary); }
+.registro-fecha { color: var(--text-muted); font-size: 14px; }
+.registro-item { margin-bottom: 6px; font-size: 15px; }
+.form-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 8px; }

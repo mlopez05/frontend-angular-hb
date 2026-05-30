@@ -1,0 +1,71 @@
+<div class="reprogramar fade-in">
+  <div class="page-header">
+    <a routerLink="/dashboard/mis-citas" class="back-link">← Volver a mis citas</a>
+    <h2>Reprogramar Cita</h2>
+    <p>Cita #{{ citaId }} — Selecciona el nuevo médico y horario</p>
+  </div>
+
+  <div class="card reprogramar-card">
+    <div class="info-banner">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      Puedes reprogramar tu cita hasta con 24 horas de anticipación.
+    </div>
+
+    <div *ngIf="error" class="alert alert-error">{{ error }}</div>
+    <div *ngIf="success" class="alert alert-success"><strong>✓</strong> {{ success }}</div>
+
+    <form (ngSubmit)="onSubmit()" *ngIf="!success">
+      <div class="form-section">
+        <div class="form-section-title">
+          <span class="section-num">1</span>
+          Selecciona médico
+        </div>
+        <div class="medicos-list">
+          <button *ngFor="let m of medicos" type="button" class="medico-card"
+            [class.selected]="medicoSeleccionado?.id === m.id" (click)="seleccionarMedico(m)">
+            <div class="medico-avatar">{{ m.nombres?.charAt(0) }}</div>
+            <div>
+              <div class="medico-nombre">Dr. {{ m.nombres }} {{ m.apellidos }}</div>
+              <div class="medico-esp">{{ m.especialidad?.nombre || 'Medicina General' }}</div>
+            </div>
+            <div class="medico-check" *ngIf="medicoSeleccionado?.id === m.id">✓</div>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-section" *ngIf="medicoSeleccionado">
+        <div class="form-section-title">
+          <span class="section-num">2</span>
+          Selecciona horario disponible
+        </div>
+        <div *ngIf="loadingSlots" style="color:var(--text-muted);font-style:italic">Cargando horarios...</div>
+        <div *ngIf="!loadingSlots && slotsDisponibles.length === 0" class="alert alert-error">
+          No hay horarios disponibles para este médico.
+        </div>
+        <div class="medicos-list">
+          <button *ngFor="let slot of slotsDisponibles" type="button" class="medico-card"
+            [class.selected]="slotSeleccionado?.slot_id === slot.slot_id" (click)="seleccionarSlot(slot)">
+            <div class="medico-avatar">📅</div>
+            <div>
+              <div class="medico-nombre">{{ slot.fecha }}</div>
+              <div class="medico-esp">{{ slot.hora_inicio }} - {{ slot.hora_fin }}</div>
+            </div>
+            <div class="medico-check" *ngIf="slotSeleccionado?.slot_id === slot.slot_id">✓</div>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <a routerLink="/dashboard/mis-citas" class="btn btn-outline">Cancelar</a>
+        <button type="submit" class="btn btn-primary" [disabled]="loading || !slotSeleccionado">
+          <span *ngIf="loading" class="btn-spinner"></span>
+          {{ loading ? 'Reprogramando...' : 'Confirmar reprogramación' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

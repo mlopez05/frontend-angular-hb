@@ -1,0 +1,117 @@
+<div class="solicitar-cita fade-in">
+  <div class="page-header">
+    <div>
+      <a routerLink="/dashboard/mis-citas" class="back-link">← Mis citas</a>
+      <h2>Solicitar Nueva Cita</h2>
+      <p>Completa el formulario para agendar tu consulta médica</p>
+    </div>
+  </div>
+
+  <div class="form-card card">
+    <div *ngIf="error" class="alert alert-error">{{ error }}</div>
+    <div *ngIf="success" class="alert alert-success">
+      <strong>✓</strong> {{ success }}
+    </div>
+
+    <form (ngSubmit)="onSubmit()" *ngIf="!success">
+      <!-- Especialidad -->
+      <div class="form-section">
+        <div class="form-section-title">
+          <span class="section-num">1</span>
+          Selecciona especialidad
+        </div>
+        <div class="especialidades-grid">
+          <button
+            *ngFor="let esp of especialidades"
+            type="button"
+            class="esp-card"
+            [class.selected]="especialidadId == esp.id"
+            (click)="especialidadId = esp.id; onEspecialidadChange()"
+          >
+            <span class="esp-icon">🏥</span>
+            {{ esp.nombre }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Médico -->
+      <div class="form-section">
+        <div class="form-section-title">
+          <span class="section-num">2</span>
+          Elige tu médico
+        </div>
+        <div *ngIf="medicosFiltrados.length === 0" class="alert alert-error">
+          No hay médicos disponibles para esta especialidad.
+        </div>
+        <div class="medicos-list">
+          <button
+            *ngFor="let med of medicosFiltrados"
+            type="button"
+            class="medico-card"
+            [class.selected]="medicoId == med.id"
+            (click)="seleccionarMedico(med)"
+          >
+            <div class="medico-avatar">{{ med.nombre.charAt(0) }}</div>
+            <div>
+              <div class="medico-nombre">Dr. {{ med.nombre }}</div>
+              <div class="medico-esp">{{ especialidades[med.especialidadId - 1]?.nombre }}</div>
+            </div>
+            <div class="medico-check" *ngIf="medicoId == med.id">✓</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Slots disponibles -->
+      <div class="form-section" *ngIf="medicoId">
+        <div class="form-section-title">
+          <span class="section-num">3</span>
+          Selecciona un horario disponible
+        </div>
+        <div *ngIf="slotsDisponibles.length === 0" class="alert alert-error">
+          No hay horarios disponibles para este médico.
+        </div>
+        <div class="medicos-list">
+          <button
+            *ngFor="let slot of slotsDisponibles"
+            type="button"
+            class="medico-card"
+            [class.selected]="slotId == slot.slot_id"
+            (click)="seleccionarSlot(slot)"
+          >
+            <div class="medico-avatar">📅</div>
+            <div>
+              <div class="medico-nombre">{{ slot.fecha }}</div>
+              <div class="medico-esp">{{ slot.hora_inicio }} - {{ slot.hora_fin }}</div>
+            </div>
+            <div class="medico-check" *ngIf="slotId == slot.slot_id">✓</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Observaciones -->
+      <div class="form-section">
+        <div class="form-section-title">
+          <span class="section-num">4</span>
+          Observaciones <span style="font-weight:400;color:var(--text-muted)">(opcional)</span>
+        </div>
+        <div class="form-group">
+          <textarea
+            class="form-control"
+            [(ngModel)]="observaciones"
+            name="observaciones"
+            rows="3"
+            placeholder="Describe brevemente el motivo de tu consulta..."
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <a routerLink="/dashboard/mis-citas" class="btn btn-outline">Cancelar</a>
+        <button type="submit" class="btn btn-primary" [disabled]="loading">
+          <span *ngIf="loading" class="btn-spinner"></span>
+          {{ loading ? 'Enviando solicitud...' : 'Solicitar Cita' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

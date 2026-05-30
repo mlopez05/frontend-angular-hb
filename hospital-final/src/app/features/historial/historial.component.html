@@ -1,0 +1,47 @@
+<div class="historial fade-in">
+  <div class="page-header">
+    <div>
+      <h2>Historial Médico</h2>
+      <p>Tus registros clínicos</p>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="spinner"></div>
+  <div *ngIf="error" class="alert alert-error">{{ error }}</div>
+
+  <div *ngIf="buscado && !loading">
+    <div *ngIf="registros.length === 0" class="empty-state">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
+        <rect x="9" y="3" width="6" height="4" rx="1"/>
+      </svg>
+      <h3>Sin registros médicos</h3>
+      <p>No tienes registros clínicos aún.</p>
+    </div>
+    <div class="registros-list">
+      <div *ngFor="let r of registros" class="registro-card card">
+        <div class="registro-header">
+          <span class="registro-id">Registro #{{ r.id }}</span>
+          <span class="registro-fecha">{{ r.fechaConsulta | date:'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+        <div class="registro-body">
+          <div class="registro-item" *ngIf="r.nombreMedico">
+            <strong>Médico:</strong> Dr. {{ r.nombreMedico }}
+          </div>
+          <div class="registro-item" *ngIf="r.especialidad">
+            <strong>Especialidad:</strong> {{ r.especialidad }}
+          </div>
+          <div class="registro-item">
+            <strong>Diagnóstico:</strong> {{ r.diagnosticoPrincipal || r.diagnostico }}
+          </div>
+          <div class="registro-item" *ngIf="r.recetaMedica || r.tratamiento">
+            <strong>Receta:</strong> {{ r.recetaMedica || r.tratamiento }}
+          </div>
+          <div class="registro-item" *ngIf="r.observaciones">
+            <strong>Observaciones:</strong> {{ r.observaciones }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

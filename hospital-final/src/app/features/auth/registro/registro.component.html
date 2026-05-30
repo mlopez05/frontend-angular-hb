@@ -1,0 +1,96 @@
+<div class="registro-page">
+  <div class="registro-card fade-in">
+    <div class="registro-header">
+      <div class="back-link">
+        <a routerLink="/login">← Volver al login</a>
+      </div>
+      <div class="hospital-badge">
+        <svg width="24" height="24" viewBox="0 0 48 48" fill="none">
+          <path d="M24 8v32M8 24h32" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        Hospital La Bendición
+      </div>
+      <h2>Crear Cuenta</h2>
+      <p>Completa el formulario para registrarte como paciente</p>
+    </div>
+
+    <!-- Steps indicator -->
+    <div class="steps">
+      <div class="step" [class.active]="step === 1" [class.done]="step > 1">
+        <div class="step-circle">{{ step > 1 ? '✓' : '1' }}</div>
+        <span>Cuenta</span>
+      </div>
+      <div class="step-line" [class.done]="step > 1"></div>
+      <div class="step" [class.active]="step === 2">
+        <div class="step-circle">2</div>
+        <span>Datos personales</span>
+      </div>
+    </div>
+
+    <div *ngIf="error" class="alert alert-error">{{ error }}</div>
+    <div *ngIf="success" class="alert alert-success">{{ success }}</div>
+
+    <!-- Step 1: Datos de usuario -->
+    <form *ngIf="step === 1" (ngSubmit)="nextStep()">
+      <div class="grid-2">
+        <div class="form-group">
+          <label class="form-label">Nombre</label>
+          <input type="text" class="form-control" [(ngModel)]="nombre" name="nombre" placeholder="Juan" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Apellido</label>
+          <input type="text" class="form-control" [(ngModel)]="apellido" name="apellido" placeholder="Pérez" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Correo electrónico (usuario)</label>
+        <input type="email" class="form-control" [(ngModel)]="usuario" name="usuario" placeholder="juan@correo.com" />
+      </div>
+      <div class="grid-2">
+        <div class="form-group">
+          <label class="form-label">Contraseña</label>
+          <input type="password" class="form-control" [(ngModel)]="password" name="contraseña" placeholder="••••••••" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Confirmar contraseña</label>
+          <input type="password" class="form-control" [(ngModel)]="confirmarPassword" name="confirmar" placeholder="••••••••" />
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-full" [disabled]="loading">
+        {{ loading ? 'Verificando...' : 'Siguiente →' }}
+      </button>
+    </form>
+
+    <!-- Step 2: Datos de paciente -->
+    <form *ngIf="step === 2" (ngSubmit)="onRegistro()">
+      <div class="form-group">
+        <label class="form-label">Número de identificación (DPI/CUI)</label>
+        <input type="text" class="form-control" [(ngModel)]="numeroIdentificacion" name="dpi" placeholder="1234567890101" />
+      </div>
+      <div class="grid-2">
+        <div class="form-group">
+          <label class="form-label">Fecha de nacimiento</label>
+          <input type="date" class="form-control" [(ngModel)]="fechaNacimiento" name="fechaNacimiento" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Teléfono</label>
+          <input type="tel" class="form-control" [(ngModel)]="telefono" name="telefono" placeholder="502-1234-5678" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Dirección</label>
+        <input type="text" class="form-control" [(ngModel)]="direccion" name="direccion" placeholder="Ciudad de Guatemala, Zona 1..." />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Correo electrónico (opcional)</label>
+        <input type="email" class="form-control" [(ngModel)]="email" name="email" placeholder="juan@correo.com" />
+      </div>
+      <div class="btn-row">
+        <button type="button" class="btn btn-outline" (click)="step = 1">← Atrás</button>
+        <button type="submit" class="btn btn-primary" [disabled]="loading">
+          {{ loading ? 'Registrando...' : 'Finalizar registro' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

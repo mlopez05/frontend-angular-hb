@@ -1,0 +1,87 @@
+<div class="registrar-medico fade-in">
+  <div class="page-header">
+    <div>
+      <h2>Registrar Médico</h2>
+      <p>Completa el formulario para dar de alta a un nuevo profesional</p>
+    </div>
+  </div>
+
+  <div class="card form-card">
+    <div *ngIf="error" class="alert alert-error">{{ error }}</div>
+    <div *ngIf="success" class="alert alert-success"><strong>✓</strong> {{ success }}</div>
+
+    <form (ngSubmit)="onSubmit()">
+      <!-- Datos personales -->
+      <div class="form-section">
+        <div class="form-section-title">
+          <span class="section-num">1</span>
+          Datos Personales
+        </div>
+        <div class="grid-2">
+          <div class="form-group">
+            <label class="form-label">Nombres *</label>
+            <input type="text" class="form-control" [(ngModel)]="medico.nombres" name="nombres" placeholder="Ana María" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Apellidos *</label>
+            <input type="text" class="form-control" [(ngModel)]="medico.apellidos" name="apellidos" placeholder="López Cruz" />
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="form-group">
+            <label class="form-label">Email *</label>
+            <input type="email" class="form-control" [(ngModel)]="medico.email" name="email" placeholder="medico@hospital.com" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Teléfono *</label>
+            <input type="tel" class="form-control" [(ngModel)]="medico.telefono" name="telefono" placeholder="+502 5555-1234" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Dirección</label>
+          <input type="text" class="form-control" [(ngModel)]="medico.direccion" name="direccion" placeholder="Zona 1, Ciudad de Guatemala" />
+        </div>
+      </div>
+
+      <!-- Datos profesionales -->
+      <div class="form-section">
+        <div class="form-section-title">
+          <span class="section-num">2</span>
+          Datos Profesionales
+        </div>
+        <div class="grid-2">
+          <div class="form-group">
+            <label class="form-label">Número de Colegiado *</label>
+            <input type="text" class="form-control" [(ngModel)]="medico.numeroColegiado" name="colegiado" placeholder="COL-55421" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Especialidad *</label>
+            <select class="form-control" [(ngModel)]="medico.especialidad" name="especialidad">
+              <option [ngValue]="null">-- Seleccionar --</option>
+              @for (esp of especialidades; track esp.id) {
+                <option [ngValue]="esp.id">{{ esp.nombre }}</option>
+              }
+            </select>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="form-group">
+            <label class="form-label">ID Centro Hospitalario *</label>
+            <input type="number" class="form-control" [(ngModel)]="medico.hospital" name="hospital" placeholder="1" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Observaciones</label>
+          <textarea class="form-control" [(ngModel)]="medico.observacion" name="observacion" rows="3" placeholder="Información adicional sobre el médico..."></textarea>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" [disabled]="loading">
+          <span *ngIf="loading" class="btn-spinner"></span>
+          {{ loading ? 'Registrando...' : 'Registrar Médico' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

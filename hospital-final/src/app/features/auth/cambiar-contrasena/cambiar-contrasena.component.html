@@ -1,0 +1,29 @@
+<div class="cambiar fade-in">
+  <div class="page-header">
+    <div>
+      <h2>Cambiar Contraseña</h2>
+      <p>Actualiza tu contraseña de acceso</p>
+    </div>
+  </div>
+  <div class="card cambiar-card">
+    <div *ngIf="error" class="alert alert-error">{{ error }}</div>
+    <div *ngIf="success" class="alert alert-success"><strong>✓</strong> {{ success }}</div>
+    <form (ngSubmit)="onSubmit()" *ngIf="!success">
+      <div class="form-group">
+        <label class="form-label">Usuario (Email) *</label>
+        <input type="email" class="form-control" [(ngModel)]="usuario" name="usuario" placeholder="tu@correo.com" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Contraseña Actual *</label>
+        <input type="password" class="form-control" [(ngModel)]="contrasenaActual" name="actual" placeholder="••••••••" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Nueva Contraseña *</label>
+        <input type="password" class="form-control" [(ngModel)]="nuevaContrasena" name="nueva" placeholder="Mínimo 6 caracteres" />
+      </div>
+      <button type="submit" class="btn btn-primary btn-full" [disabled]="loading">
+        {{ loading ? 'Cambiando...' : 'Cambiar Contraseña' }}
+      </button>
+    </form>
+  </div>
+</div>

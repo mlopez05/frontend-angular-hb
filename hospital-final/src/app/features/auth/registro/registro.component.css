@@ -1,0 +1,88 @@
+.registro-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.registro-card {
+  width: 100%;
+  max-width: 560px;
+  background: white;
+  border-radius: var(--radius);
+  padding: 48px 44px;
+  box-shadow: var(--shadow-lg);
+}
+
+.registro-header { margin-bottom: 32px; }
+.back-link { margin-bottom: 20px; }
+.back-link a { color: var(--text-muted); font-size: 14px; text-decoration: none; }
+.back-link a:hover { color: var(--primary); }
+
+.hospital-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--primary);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.registro-header h2 { font-size: 28px; color: var(--primary); margin-bottom: 6px; }
+.registro-header p { color: var(--text-muted); }
+
+/* Steps */
+.steps {
+  display: flex;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.step.active { color: var(--primary); }
+.step.done { color: var(--success); }
+
+.step-circle {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--border);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  transition: all 0.3s;
+}
+.step.active .step-circle { background: var(--primary); color: white; }
+.step.done .step-circle { background: var(--success); color: white; }
+
+.step-line {
+  flex: 1;
+  height: 2px;
+  background: var(--border);
+  margin: 0 12px;
+  transition: background 0.3s;
+}
+.step-line.done { background: var(--success); }
+
+.btn-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+.btn-row .btn { flex: 1; justify-content: center; }

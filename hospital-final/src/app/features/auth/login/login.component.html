@@ -1,0 +1,74 @@
+<div class="login-page">
+  <div class="login-left">
+    <div class="branding">
+      <div class="logo">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <rect width="48" height="48" rx="12" fill="white" fill-opacity="0.15"/>
+          <path d="M24 8v32M8 24h32" stroke="white" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="24" cy="24" r="8" fill="white" fill-opacity="0.2"/>
+        </svg>
+      </div>
+      <h1>Hospital<br><span>La Bendición</span></h1>
+      <p>Sistema de gestión de citas médicas para pacientes</p>
+    </div>
+    <div class="features">
+      <div class="feature-item">
+        <span class="feature-icon">📅</span>
+        <span>Agenda tus citas fácilmente</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🔔</span>
+        <span>Recibe notificaciones automáticas</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">📋</span>
+        <span>Consulta tu historial médico</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="login-right">
+    <div class="login-card fade-in">
+      <div class="login-header">
+        <h2>Bienvenido</h2>
+        <p>Ingresa tus credenciales para continuar</p>
+      </div>
+
+      <div *ngIf="error" class="alert alert-error">{{ error }}</div>
+
+      <form (ngSubmit)="onLogin()">
+        <div class="form-group">
+          <label class="form-label">Correo / Usuario</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="usuario"
+            name="usuario"
+            placeholder="tu@correo.com"
+            autocomplete="username"
+          />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Contraseña</label>
+          <input
+            type="password"
+            class="form-control"
+            [(ngModel)]="password"
+            name="contraseña"
+            placeholder="••••••••"
+            autocomplete="current-password"
+          />
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full" [disabled]="loading">
+          <span *ngIf="loading" class="btn-spinner"></span>
+          {{ loading ? 'Ingresando...' : 'Iniciar Sesión' }}
+        </button>
+      </form>
+
+      <div class="login-footer">
+        <p>¿No tienes cuenta? <a routerLink="/registro">Regístrate aquí</a></p>
+      </div>
+    </div>
+  </div>
+</div>

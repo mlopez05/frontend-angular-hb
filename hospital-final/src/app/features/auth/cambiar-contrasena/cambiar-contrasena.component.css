@@ -1,0 +1,5 @@
+.cambiar { max-width: 480px; }
+.page-header { margin-bottom: 28px; }
+.page-header h2 { font-size: 28px; color: var(--primary); margin-bottom: 4px; }
+.page-header p { color: var(--text-muted); }
+.cambiar-card { padding: 36px; }
