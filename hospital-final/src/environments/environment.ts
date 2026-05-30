@@ -1,4 +1,4 @@
 export const environment = {
-  production: false,
-  apiUrl: 'http://localhost:8222'
+  production: true,
+  apiUrl: "https://backend-spring-boot-hb-production.up.railway.app"
 };

@@ -1,0 +1,6 @@
+:{$PORT} {
+    root * /app/dist/hospital-la-bendicion/browser
+    encode gzip
+    try_files {path} /index.html
+    file_server
+}
